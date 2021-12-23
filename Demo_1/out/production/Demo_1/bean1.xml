@@ -3,8 +3,34 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <!--配置 User对象的创建 -->
+    <!--配置 User对象 并用xml创建这个对象实例 -->
     <bean id="user" class="com.atguigu.spring5.User">
+    </bean>
 
+    <!--配置 Book对象 与需要注入的属性值 -->
+    <!--依靠Book中的 set方法注入属性-->
+    <bean id="book" class="com.atguigu.spring5.Book">
+        <!--使用property完成属性注入
+            name：类里面属性名称
+            value：向属性注入的值
+        -->
+        <property name="bname" value="意志力"></property>
+        <property name="author" value="外国人"></property>
+    </bean>
+
+    <!--配置 Orders对象 与需要注入的属性值 -->
+    <!--依靠Orders中的 有参构造器注入属性-->
+    <bean id="orders1" class="com.atguigu.spring5.Orders">
+        <!--需要使用标签 constructor-arg 说明使用的是有参构造器创建对象
+        并传入对应 有参构造器所有的参数
+        -->
+        <constructor-arg name="address" value="北京"></constructor-arg>
+        <constructor-arg name="oname" value="新青年"></constructor-arg>
+    </bean>
+    <!--配置 Orders对象 与需要注入的属性值
+        (测试constructor-arg标签是否可以调用不同的构造器) -->
+    <bean id="orders2" class="com.atguigu.spring5.Orders">
+        <constructor-arg name="address" value="北京"></constructor-arg>
+        <constructor-arg name="age" value="123"></constructor-arg>
     </bean>
 </beans>
