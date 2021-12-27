@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--配置 User对象 并用xml创建这个对象实例 -->
+    <bean id="user" class="com.atguigu.spring5.User">
+    </bean>
+
+    <!--配置 Book对象 与需要注入的属性值 -->
+    <!--依靠Book中的 set方法注入属性-->
+    <bean id="book" class="com.atguigu.spring5.Book">
+        <!--使用property完成属性注入
+            name：类里面属性名称
+            value：向属性注入的值
+        -->
+        <property name="bname" value="意志力"></property>
+        <property name="author" value="外国人"></property>
+    </bean>
+
+    <!--简化属性注入中的set方式-->
+    <bean id="book2" class="com.atguigu.spring5.Book" p:bname="九阳神功" p:author="王阳明">
+    </bean>
+
+    <!--配置 Orders对象 与需要注入的属性值 -->
+    <!--依靠Orders中的 有参构造器注入属性-->
+    <bean id="orders1" class="com.atguigu.spring5.Orders">
+        <!--需要使用标签 constructor-arg 说明使用的是有参构造器创建对象
+        并传入对应 有参构造器所有的参数
+        -->
+        <constructor-arg name="address" value="北京"></constructor-arg>
+        <constructor-arg name="oname" value="新青年"></constructor-arg>
+    </bean>
+    <!--配置 Orders对象 与需要注入的属性值
+        (测试constructor-arg标签是否可以调用不同的构造器) -->
+    <bean id="orders2" class="com.atguigu.spring5.Orders">
+        <constructor-arg name="address" value="北京"></constructor-arg>
+        <constructor-arg name="age" value="123"></constructor-arg>
+    </bean>
+
+    <!--xml注入 字面量-->
+    <bean id="book_2" class="com.atguigu.spring5.Book2">
+        <property name="bname" value="123"></property>
+        <property name="author" value="321"></property>
+        <!--属性值是 null值 的方式-->
+        <property name="address">
+            <null/>
+        </property>
+    </bean>
+    <!--xml注入 字面量-->
+    <bean id="book_2_2" class="com.atguigu.spring5.Book2">
+        <property name="bname" value="123"></property>
+        <property name="author" value="321"></property>
+        <!--属性值包含特殊符号
+            1 把<>进行转义 &lt; &gt;
+            2 把带特殊符号内容写到CDATA
+        -->
+        <property name="address">
+            <value><![CDATA[<<南京>>]]></value>
+        </property>
+    </bean>
+    <!--测试是否 xml注入了字面量-->
+    <bean id="book_2_new" class="com.atguigu.spring5.Book2">
+    </bean>
+
+</beans>
