@@ -3,7 +3,9 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-                           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <!--bean的单实例多/实例及作用域(作用域暂时没看出来结论)-->
 
     <!--不属于任何 bean的 list集合-->
     <util:list id="bookList">
@@ -12,8 +14,13 @@
         <value>PHP</value>
     </util:list>
 
-    <!--注入 提取的List集合 到对象中-->
-    <bean id="book" class="com.atguigu.spring5.collectiontypes.Book">
+    <!--默认就是 单实例-->
+    <bean id="book1" class="com.atguigu.spring5.collectiontypes.Book">
+        <property name="list" ref="bookList"></property>
+    </bean>
+
+    <!--实现 多实例-->
+    <bean id="book2" class="com.atguigu.spring5.collectiontypes.Book" scope="prototype">
         <property name="list" ref="bookList"></property>
     </bean>
 </beans>
