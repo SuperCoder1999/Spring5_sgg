@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--直接配置连接池
+    1.这和我之前用的Druid不太一样,那个DruidDataSource的创建是
+    通过dataSource = DruidDataSourceFactory.createDataSource(properties);获取的
+    2.这里应该是调用了DruidDataSource的无参构造器创建,再进行配置连接池信息-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+        <property name="url" value="jdbc:mysql://localhost:3306/dataSourceByBean"></property>
+        <property name="username" value="root"></property>
+        <property name="password" value="N331150871"></property>
+    </bean>
+
+    <!--引入外部属性文件配置数据库连接池
+    1.需要引入外部属性文件-->
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+    <!--
+    2.需要用到spring的表达式,获取外部文件中的内容-->
+    <bean id="dataSource2" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="${dataSource2.driverClassName}"></property>
+        <property name="url" value="${dataSource2.url}"></property>
+        <property name="username" value="${dataSource2.username}"></property>
+        <property name="password" value="${dataSource2.password}"></property>
+    </bean>
+
+</beans>

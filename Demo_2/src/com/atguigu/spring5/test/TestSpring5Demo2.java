@@ -1,5 +1,7 @@
 package com.atguigu.spring5.test;
 
+import com.alibaba.druid.pool.DruidDataSource;
+import com.atguigu.spring5.autowire.Emp;
 import com.atguigu.spring5.beanspan.Orders;
 import com.atguigu.spring5.collectiontypes.Book;
 import com.atguigu.spring5.collectiontypes.Course;
@@ -8,6 +10,8 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import javax.sql.DataSource;
 
 public class TestSpring5Demo2 {
 
@@ -74,4 +78,37 @@ public class TestSpring5Demo2 {
         ((AbstractApplicationContext)context).close();
     }
 
+    /**
+     * 演示 xml自动装配
+     */
+    @Test
+    public void testAutoWire() {
+        ApplicationContext context = new ClassPathXmlApplicationContext("/bean6.xml");
+        //通过 byName的方式 自动装配
+        Emp emp = context.getBean("emp1", Emp.class);
+        emp.test();
+
+        //通过 byType的方式,自动装配
+        Emp emp2 = context.getBean("emp2", Emp.class);
+        emp2.test();
+    }
+
+    /**
+     * 直接配置连接池 获取连接池
+     */
+    @Test
+    public void testDataSourceByBean() {
+        ApplicationContext context = new ClassPathXmlApplicationContext("/bean7.xml");
+        DataSource dataSource = context.getBean("dataSource", DruidDataSource.class);
+        System.out.println(dataSource);
+    }
+    /**
+     * 引入外部属性文件配置数据库连接池
+     */
+    @Test
+    public void testDataSourceByBean2() {
+        ApplicationContext context = new ClassPathXmlApplicationContext("/bean7.xml");
+        DataSource dataSource2 = context.getBean("dataSource2", DruidDataSource.class);
+        System.out.println(dataSource2);
+    }
 }
