@@ -6,8 +6,8 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
                             http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <!--开启 组件扫描-->
+    <!--使用注解实现对象创建-->
+    <!--1.开启 组件扫描-->
     <context:component-scan base-package="com.atguigu"></context:component-scan>
-
-
+    
 </beans>
