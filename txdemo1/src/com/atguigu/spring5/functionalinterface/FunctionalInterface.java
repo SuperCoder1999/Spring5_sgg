@@ -1,5 +1,6 @@
 package com.atguigu.spring5.functionalinterface;
 
+
 import org.junit.Test;
 import org.springframework.context.support.GenericApplicationContext;
 
