@@ -13,7 +13,7 @@
     <context:component-scan base-package="com.atguigu.spring5"></context:component-scan>
 
     <!--使用xml配置文件 配置数据库连接池-->
-    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+    <bean id="druidDataSource" class="com.alibaba.druid.pool.DruidDataSource"
           destroy-method="close">
         <property name="url" value="jdbc:mysql://localhost:3306/user_db"/>
         <property name="username" value="root"/>
@@ -25,16 +25,16 @@
     <!--配置JdbcTemplate对象-->
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
         <!--注入dataSource对象-->
-        <property name="dataSource" ref="dataSource"></property>
+        <property name="dataSource" ref="druidDataSource"></property>
     </bean>
 
     <!--配置事务管理器-->
-    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    <bean id="transactionManager1" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <!--注入数据库-->
-        <property name="dataSource" ref="dataSource"></property>
+        <property name="dataSource" ref="druidDataSource"></property>
     </bean>
 
     <!--开启事务注解-->
-    <tx:annotation-driven transaction-manager="transactionManager"></tx:annotation-driven>
+    <tx:annotation-driven transaction-manager="transactionManager1"></tx:annotation-driven>
 
 </beans>

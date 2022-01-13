@@ -13,18 +13,19 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @ComponentScan(basePackages = "com.atguigu") //组件扫描
 @EnableTransactionManagement //开启事务
-@Configuration //声明配置类
+//@Configuration //声明配置类 -- 在这里声明配置类 会误解xml配置/xml+注解 这两种各自spring中的bean池.导致找错bean
+//诡异的事情.这里不用声明 配置类  也可以在"完全注解"中使用
 public class TxConfig {
     //创建数据库连接池
     @Bean
     public DruidDataSource getDruidDataSource() {
-        DruidDataSource dataSource = new DruidDataSource();
+        DruidDataSource druidDataSource = new DruidDataSource();
         //配置连接池信息
-        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/user_db");
-        dataSource.setUsername("root");
-        dataSource.setPassword("N331150871");
-        return dataSource;
+        druidDataSource.setDriverClassName("com.mysql.jdbc.Driver");
+        druidDataSource.setUrl("jdbc:mysql://localhost:3306/user_db");
+        druidDataSource.setUsername("root");
+        druidDataSource.setPassword("N331150871");
+        return druidDataSource;
     }
 
     //创建JdbcTemplate对象
@@ -38,7 +39,7 @@ public class TxConfig {
 
     //创建事务管理器
     @Bean
-    public DataSourceTransactionManager getTransaction(DruidDataSource druidDataSource) {
+    public DataSourceTransactionManager getDataSourceTransactionManager(DruidDataSource druidDataSource) {
         DataSourceTransactionManager dataSourceTransactionManager = new DataSourceTransactionManager();
         dataSourceTransactionManager.setDataSource(druidDataSource);
         return dataSourceTransactionManager;

@@ -1,7 +1,8 @@
 package com.atguigu.spring5.functionalinterface;
 
 
-import org.junit.Test;
+//import org.junit.Test; //Junit4 的包
+import org.junit.jupiter.api.Test;  //Junit5 的包
 import org.springframework.context.support.GenericApplicationContext;
 
 /**
@@ -23,8 +24,6 @@ public class FunctionalInterface {
 
         //不指定 注册实例名称
         context.registerBean(User.class);
-
-
 
         //3.获取在spring注册的对象
         User user1 = (User)context.getBean("user1");

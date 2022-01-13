@@ -2,7 +2,8 @@ package com.atguigu.spring5.test;
 
 import com.atguigu.spring5.config.TxConfig;
 import com.atguigu.spring5.service.UserService;
-import org.junit.Test;
+//import org.junit.Test;  //Junit4 的包
+import org.junit.jupiter.api.Test;  //Junit5的包
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -37,5 +38,4 @@ public class TestSpring5 {
         UserService userService = context.getBean("userService", UserService.class);
         userService.accountMoney();
     }
-
 }
